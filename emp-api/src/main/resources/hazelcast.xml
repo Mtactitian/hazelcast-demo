@@ -1,0 +1,33 @@
+<hazelcast xmlns="http://www.hazelcast.com/schema/config"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.hazelcast.com/schema/config
+           http://www.hazelcast.com/schema/config/hazelcast-config-3.11.xsd">
+
+    <properties>
+        <property name="hazelcast.discovery.enabled">true</property>
+        <property name="name">hazelcast-test</property>
+        <property name="hazelcast.name">hazelcast-test</property>
+    </properties>
+
+    <network>
+        <join>
+            <multicast enabled="false"/>
+            <aws enabled="false"/>
+            <eureka>
+                <property name="name">HAZELCAST</property>
+                <property name="hazelcast.name">hazelcast-test</property>
+            </eureka>
+            <discovery-strategies>
+                <discovery-strategy class="com.hazelcast.eureka.one.EurekaOneDiscoveryStrategy" enabled="true">
+                    <properties>
+                        <property name="self-registration">true</property>
+                        <property name="namespace">hazelcast</property>
+                        <property name="use-classpath-eureka-client-props">false</property>
+                        <property name="shouldUseDns">false</property>
+                        <property name="serviceUrl.default">http://localhost:8761/eureka</property>
+                    </properties>
+                </discovery-strategy>
+            </discovery-strategies>
+        </join>
+    </network>
+</hazelcast>
